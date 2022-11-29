@@ -1,0 +1,26 @@
+{
+    "name": "@koralabs/handles-public-api-interfaces",
+    "version": "1.0.0",
+    "description": "Common interfaces library for Handles API",
+    "main": "index.js",
+    "types": "index.d.ts",
+    "homepage": "https://github.com/koralabs/handles-public-api-interfaces",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/koralabs/handles-public-api-interfaces.git"
+    },
+    "scripts": {
+        "build": "tsc"
+    },
+    "contributors": [
+        {
+            "name": "BigIrishLion"
+        }
+    ],
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "typescript": "^3.8.3"
+    }
+}
