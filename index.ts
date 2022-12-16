@@ -4,37 +4,37 @@ export enum Rarity {
     rare = 'rare', // - 3 characters
     ultra_rare = 'ultra_rare', // - 2 characters
     legendary = 'legendary' // - 1 character
-}
-
-export interface IPersonalization {
+  }
+  
+  export interface IPersonalization {
     my_page?: {
-        type: string;
-        domain?: string | null;
-        customSettings?: string[] | null;
+      type: string;
+      domain?: string | null;
+      customSettings?: string[] | null;
     };
     nft_appearance?: {
-        image: string;
-        background: string;
-        profilePic: string;
-        theme: string;
-        contact?: string;
-        textBackground: string;
-        border: string;
-        trimColor: string;
-        selectedAttributes: string[];
-        purchasedAttributes: string[];
+      image: string;
+      background: string;
+      profilePic: string;
+      theme: string;
+      contact?: string;
+      textBackground: string;
+      border: string;
+      trimColor: string;
+      selectedAttributes: string[];
+      purchasedAttributes: string[];
     };
     social_links?: {
-        twitter?: string;
-        discord?: string;
-        facebook?: string;
+      twitter?: string;
+      discord?: string;
+      facebook?: string;
     };
     sub_handles?: {
-        [subHandleName: string]: string; // walletId
+      [subHandleName: string]: string; // walletId
     };
-}
-
-export interface IHandle {
+  }
+  
+  export interface IHandle {
     hex: string;
     name: string;
     nft_image: string;
@@ -48,19 +48,19 @@ export interface IHandle {
     profile_pic: string;
     background: string;
     resolved_addresses: {
-        ada: string;
-        eth?: string;
-        btc?: string;
+      ada: string;
+      eth?: string;
+      btc?: string;
     };
-    created_at: number;
-    updated_at?: number;
-}
-
-export interface IPersonalizedHandle extends IHandle {
+    created_slot_number: number;
+    updated_slot_number?: number;
+  }
+  
+  export interface IPersonalizedHandle extends IHandle {
     personalization?: IPersonalization;
-}
-
-export interface IHandleStats {
+  }
+  
+  export interface IHandleStats {
     percentageComplete: string;
     currentMemoryUsed: number;
     ogmiosElapsed: string;
@@ -70,8 +70,8 @@ export interface IHandleStats {
     memorySize: number;
     currentSlot: number;
     currentBlockHash: string;
-}
-
+  }
+  
 export interface IHandleFileContent {
     slot: number;
     hash: string;
