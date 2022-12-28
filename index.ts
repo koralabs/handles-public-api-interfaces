@@ -39,7 +39,7 @@ export interface IHandle {
     name: string;
     nft_image: string;
     original_nft_image: string;
-    stake_key: string;
+    holder_address: string;
     length: number;
     og: number;
     rarity: Rarity;
