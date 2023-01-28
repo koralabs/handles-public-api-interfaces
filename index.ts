@@ -6,24 +6,36 @@ export enum Rarity {
     legendary = 'legendary' // - 1 character
 }
 
+export interface KeyPair {
+    key: string;
+    value: any;
+}
+
+export interface IPersonalizationNftAppearance {
+    handleTextShadowColor?: string;
+    handleTextBgColor?: string;
+    pfpImageUrl?: string;
+    pfpImageUrlEnabled?: boolean;
+    pfpBorderColor?: string;
+    backgroundImageUrl?: string;
+    backgroundImageUrlEnabled?: boolean;
+    backgroundColor?: string;
+    backgroundBorderColor?: string;
+    qrEnabled?: boolean;
+    qrColor?: string;
+    socials?: KeyPair[];
+    socialsEnabled?: boolean;
+    selectedAttributes?: string[];
+    purchasedAttributes?: string[];
+}
+
 export interface IPersonalization {
     my_page?: {
         type: string;
         domain?: string | null;
         customSettings?: string[] | null;
     };
-    nft_appearance?: {
-        image: string;
-        background: string;
-        profilePic: string;
-        theme: string;
-        contact?: string;
-        textBackground: string;
-        border: string;
-        trimColor: string;
-        selectedAttributes: string[];
-        purchasedAttributes: string[];
-    };
+    nft_appearance?: IPersonalizationNftAppearance;
     social_links?: {
         twitter?: string;
         discord?: string;
