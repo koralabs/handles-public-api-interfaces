@@ -55,6 +55,7 @@ export interface IHandle {
     length: number;
     og: number;
     rarity: Rarity;
+    utxo: string;
     characters: string; // 'letters,numbers,special',
     numeric_modifiers: string; // 'negative,decimal',
     default_in_wallet: string; // my_default_hndl
