@@ -69,6 +69,7 @@ export interface IHandle {
     created_slot_number: number;
     updated_slot_number: number;
     hasDatum: boolean;
+    datum?: string;
 }
 
 export interface IPersonalizedHandle extends IHandle {
