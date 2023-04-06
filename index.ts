@@ -34,6 +34,7 @@ export interface IPersonalization {
         type: string;
         domain?: string | null;
         customSettings?: string[] | null;
+        default: boolean;
     };
     nft_appearance?: IPersonalizationNftAppearance;
     social_links?: {
@@ -43,6 +44,12 @@ export interface IPersonalization {
     };
     sub_handles?: {
         [subHandleName: string]: string; // walletId
+    };
+    reference_token: {
+        tx_id: string;
+        index: number;
+        lovelace: number;
+        datum: string;
     };
 }
 
