@@ -6,6 +6,12 @@ export enum Rarity {
     legendary = 'legendary' // - 1 character
 }
 
+export enum AssetNameLabel {
+    LABEL_100 = '000643b0', // 100
+    LABEL_222 = '000de140', // 222
+    LABEL_333 = '0014df10' // 333
+}
+
 export interface KeyPair {
     key: string;
     value: any;
