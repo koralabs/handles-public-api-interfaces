@@ -111,7 +111,8 @@ export interface IHandleFileContent {
 export interface ICreatorDefaults {
     border_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
     pfp_border_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
-    handle_highlight: string[]; // ["0a1fd3", "22d1af", "31bc23"],
+    text_ribbon_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
+    text_ribbon_gradient: string; // 'linear-45' | 'radial'
     font: string; // 'https://fonts.com/super_cool_font.woff';
     font_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
     qr_background: string; // '22d1af';
