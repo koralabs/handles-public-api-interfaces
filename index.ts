@@ -107,3 +107,22 @@ export interface IHandleFileContent {
     schemaVersion?: number;
     handles: Record<string, IPersonalizedHandle>;
 }
+
+export interface ICreatorDefaults {
+    border_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
+    pfp_border_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
+    handle_highlight: string[]; // ["0a1fd3", "22d1af", "31bc23"],
+    font: string; // 'https://fonts.com/super_cool_font.woff';
+    font_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
+    qr_background: string; // '22d1af';
+    qr_eye_color: string; // '0a1fd3';
+    qr_dot_color: string; // '0a1fd3';
+    require_pfp_collections: string[]; // ["<policy_id>.<asset_prefix>", "<other_policy_id>"],
+    require_pfp_attributes: string[]; // ["Outerwear:Denim Jacket"],
+    require_pfp_displayed: boolean; // true;
+    pfp_zoom: number; // 0.86;
+    pfp_offset: number[]; //[124, 58],
+    price: number; // 125;
+    force_creator_settings: boolean; // true;
+    custom_dollar_symbol: boolean; // true;
+}
