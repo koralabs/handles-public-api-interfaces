@@ -18,17 +18,24 @@ export interface KeyPair {
 }
 
 export interface IPersonalizationNftAppearance {
-    handleTextShadowColor?: string;
-    handleTextBgColor?: string;
+    fontShadowColor?: string;
+    textRibbonColors?: string[];
+    textRibbonGradient?: string;
+    fontColor?: string;
+    fontUrl?: string;
     pfpImageUrl?: string;
     pfpImageUrlEnabled?: boolean;
     pfpBorderColor?: string;
+    pfpZoom?: number;
+    pfpOffset?: number[];
     backgroundImageUrl?: string;
     backgroundImageUrlEnabled?: boolean;
     backgroundColor?: string;
     backgroundBorderColor?: string;
     qrEnabled?: boolean;
-    qrColor?: string;
+    qrBgColor?: string;
+    qrEyeColor?: string;
+    qrDotColor?: string;
     socials?: KeyPair[];
     socialsEnabled?: boolean;
     selectedAttributes?: string[];
@@ -115,6 +122,7 @@ export interface ICreatorDefaults {
     text_ribbon_gradient: string; // 'linear-45' | 'radial'
     font: string; // 'https://fonts.com/super_cool_font.woff';
     font_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
+    font_shadow_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
     qr_background: string; // '22d1af';
     qr_eye_color: string; // '0a1fd3';
     qr_dot_color: string; // '0a1fd3';
