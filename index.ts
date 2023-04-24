@@ -120,12 +120,13 @@ export interface ICreatorDefaults {
     pfp_border_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
     text_ribbon_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
     text_ribbon_gradient: string; // 'linear-45' | 'radial'
-    font: string; // 'https://fonts.com/super_cool_font.woff';
+    font: string; // 'Family Name,https://fonts.com/super_cool_font.woff';
     font_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
     font_shadow_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
-    qr_background: string; // '22d1af';
-    qr_eye_color: string; // '0a1fd3';
-    qr_dot_color: string; // '0a1fd3';
+    qr_background_color: string; // '#22d1af';
+    qr_inner_eye: string; // 'rounded,#0a1fd3';
+    qr_outer_eye: string; // 'square,#0a1fd3';
+    qr_dot: string; // 'dot,#0a1fd3';
     require_pfp_collections: string[]; // ["<policy_id>.<asset_prefix>", "<other_policy_id>"],
     require_pfp_attributes: string[]; // ["Outerwear:Denim Jacket"],
     require_pfp_displayed: boolean; // true;
