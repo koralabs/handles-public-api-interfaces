@@ -34,8 +34,9 @@ export interface IPersonalizationNftAppearance {
     backgroundBorderColor?: string;
     qrEnabled?: boolean;
     qrBgColor?: string;
-    qrEyeColor?: string;
-    qrDotColor?: string;
+    qrInnerEye?: string;
+    qrOuterEye?: string;
+    qrDot?: string;
     socials?: KeyPair[];
     socialsEnabled?: boolean;
     selectedAttributes?: string[];
