@@ -9,7 +9,8 @@ export enum Rarity {
 export enum AssetNameLabel {
     LABEL_100 = '000643b0', // 100
     LABEL_222 = '000de140', // 222
-    LABEL_333 = '0014df10' // 333
+    LABEL_333 = '0014df10', // 333
+    LABEL_444 = '001bc280' // 444
 }
 
 export interface KeyPair {
