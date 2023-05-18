@@ -18,54 +18,54 @@ export interface KeyPair {
     value: any;
 }
 
-export interface IPersonalizationNftAppearance {
-    fontShadowColor?: string;
-    textRibbonColors?: string[];
-    textRibbonGradient?: string;
-    fontColor?: string;
-    fontUrl?: string;
-    pfpImageUrl?: string;
-    pfpImageUrlEnabled?: boolean;
-    pfpBorderColor?: string;
-    pfpZoom?: number;
-    pfpOffset?: number[];
-    backgroundImageUrl?: string;
-    backgroundImageUrlEnabled?: boolean;
-    backgroundColor?: string;
-    backgroundBorderColor?: string;
-    qrEnabled?: boolean;
-    qrBgColor?: string;
-    qrInnerEye?: string;
-    qrOuterEye?: string;
-    qrDot?: string;
-    socials?: KeyPair[];
-    socialsEnabled?: boolean;
-    selectedAttributes?: string[];
-    purchasedAttributes?: string[];
+export interface SocialItem {
+    display: string;
+    url: string;
+}
+
+interface ISharedPzAppearance {
+    pfp_border_color?: string;
+    qr_inner_eye?: string; // 'rounded,#0a1fd3';
+    qr_outer_eye?: string; // 'square,#0a1fd3';
+    qr_dot?: string; // 'dot,#0a1fd3';
+    qr_bg_color?: string; // '#22d1af';
+    pfp_zoom?: number; // 0.86;
+    pfp_offset?: number[]; //[124, 58],
+    font?: string; // 'Family Name,https://fonts.com/super_cool_font.woff';
+    font_color?: string; // "0a1fd3",
+    font_shadow_size?: number[]; // [12, 12, 8],
+    text_ribbon_colors?: string[]; // ["0a1fd3", "22d1af", "31bc23"],
+    text_ribbon_gradient?: string; // 'linear-45' | 'radial'
+}
+
+export interface IPersonalizationNftAppearance extends ISharedPzAppearance {
+    font_shadow_color?: string;
+    pfp_image?: string;
+    bg_image?: string;
+    bg_color?: string;
+    bg_border_color?: string;
+    qr_link?: string;
+    socials?: SocialItem[];
 }
 
 export interface IPersonalization {
-    my_page?: {
+    portal?: {
         type: string;
         domain?: string | null;
-        customSettings?: string[] | null;
+        custom_settings?: string[] | null;
         default: boolean;
     };
-    nft_appearance?: IPersonalizationNftAppearance;
-    social_links?: {
-        twitter?: string;
-        discord?: string;
-        facebook?: string;
-    };
-    sub_handles?: {
-        [subHandleName: string]: string; // walletId
-    };
+    designer?: IPersonalizationNftAppearance;
+    socials?: SocialItem[];
     reference_token: {
         tx_id: string;
         index: number;
         lovelace: number;
         datum: string;
     };
+    validated: boolean;
+    trial?: boolean;
+    nsfw?: boolean;
 }
 
 export interface IHandle {
@@ -90,7 +90,7 @@ export interface IHandle {
     };
     created_slot_number: number;
     updated_slot_number: number;
-    hasDatum: boolean;
+    has_datum: boolean;
     datum?: string;
 }
 
@@ -99,15 +99,43 @@ export interface IPersonalizedHandle extends IHandle {
 }
 
 export interface IHandleStats {
-    percentageComplete: string;
-    currentMemoryUsed: number;
-    ogmiosElapsed: string;
-    buildingElapsed: string;
-    handleCount: number;
-    slotDate: Date;
-    memorySize: number;
-    currentSlot: number;
-    currentBlockHash: string;
+    percentage_complete: string;
+    current_memory_used: number;
+    ogmios_elapsed: string;
+    building_elapsed: string;
+    handle_count: number;
+    slot_date: Date;
+    memory_size: number;
+    current_slot: number;
+    current_block_hash: string;
+}
+
+export interface IHandleMetadata {
+    name: string;
+    image: string;
+    mediaType: string;
+    og: boolean;
+    og_num: number;
+    rarity: string;
+    length: number;
+    character_type: string;
+    numeric_modifiers: string;
+    version: number;
+}
+
+export interface IPzDatum {
+    custom_image: string;
+    bg_image: string;
+    pfp_image: string;
+    portal: string;
+    designer: string;
+    socials: string;
+    vendor: string;
+    default: boolean;
+    holder: string;
+    validated: boolean;
+    trial?: boolean;
+    nsfw?: boolean;
 }
 
 export interface IHandleFileContent {
@@ -117,24 +145,14 @@ export interface IHandleFileContent {
     handles: Record<string, IPersonalizedHandle>;
 }
 
-export interface ICreatorDefaults {
-    border_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
-    pfp_border_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
-    text_ribbon_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
-    text_ribbon_gradient: string; // 'linear-45' | 'radial'
-    font: string; // 'Family Name,https://fonts.com/super_cool_font.woff';
-    font_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
-    font_shadow_colors: string[]; // ["0a1fd3", "22d1af", "31bc23"],
-    qr_background_color: string; // '#22d1af';
-    qr_inner_eye: string; // 'rounded,#0a1fd3';
-    qr_outer_eye: string; // 'square,#0a1fd3';
-    qr_dot: string; // 'dot,#0a1fd3';
-    require_pfp_collections: string[]; // ["<policy_id>.<asset_prefix>", "<other_policy_id>"],
-    require_pfp_attributes: string[]; // ["Outerwear:Denim Jacket"],
-    require_pfp_displayed: boolean; // true;
-    pfp_zoom: number; // 0.86;
-    pfp_offset: number[]; //[124, 58],
-    price: number; // 125;
-    force_creator_settings: boolean; // true;
-    custom_dollar_symbol: boolean; // true;
+export interface ICreatorDefaults extends ISharedPzAppearance {
+    bg_border_colors?: string[]; // ["0a1fd3", "22d1af", "31bc23"],
+    pfp_border_colors?: string[]; // ["0a1fd3", "22d1af", "31bc23"],
+    font_shadow_colors?: string[]; // ["0a1fd3", "22d1af", "31bc23"],
+    require_pfp_collections?: string[]; // ["<policy_id>.<asset_prefix>", "<other_policy_id>"],
+    require_pfp_attributes?: string[]; // ["Outerwear:Denim Jacket"],
+    require_pfp_displayed?: boolean; // true;
+    price?: number; // 125;
+    force_creator_settings?: boolean; // true;
+    custom_dollar_symbol?: boolean; // true;
 }
