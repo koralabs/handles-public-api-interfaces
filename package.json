@@ -1,6 +1,6 @@
 {
     "name": "@koralabs/handles-public-api-interfaces",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "Common interfaces library for Handles API",
     "main": "index.js",
     "types": "index.d.ts",
