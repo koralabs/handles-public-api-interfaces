@@ -10,7 +10,7 @@ export enum AssetNameLabel {
     LABEL_100 = '000643b0', // 100
     LABEL_222 = '000de140', // 222
     LABEL_333 = '0014df10', // 333
-    LABEL_444 = '001bc280' // 444
+    LABEL_444 = '001bc280'  // 444
 }
 
 export interface KeyPair {
@@ -48,6 +48,18 @@ export interface IPersonalizationNftAppearance extends ISharedPzAppearance {
     socials?: SocialItem[];
 }
 
+export interface ICreatorDefaults extends ISharedPzAppearance {
+    bg_border_colors?: string[]; // ["0a1fd3", "22d1af", "31bc23"],
+    pfp_border_colors?: string[]; // ["0a1fd3", "22d1af", "31bc23"],
+    font_shadow_colors?: string[]; // ["0a1fd3", "22d1af", "31bc23"],
+    require_pfp_collections?: string[]; // ["<policy_id><asset_prefix>", "<other_policy_id>"],
+    require_pfp_attributes?: string[]; // ["Outerwear:Denim Jacket"],
+    require_pfp_displayed?: boolean; // true;
+    price?: number; // 125;
+    force_creator_settings?: boolean; // true;
+    custom_dollar_symbol?: boolean; // true;
+}
+
 export interface IPersonalization {
     portal?: {
         type: string;
@@ -71,18 +83,17 @@ export interface IPersonalization {
 export interface IHandle {
     hex: string;
     name: string;
-    nft_image: string;
-    original_nft_image: string;
-    holder_address: string;
+    image: string;
+    standard_image: string;
+    pfp_image: string;
+    bg_image: string;
+    holder: string;
     length: number;
-    og: number;
+    og_number: number;
     rarity: Rarity;
-    utxo: string;
     characters: string; // 'letters,numbers,special',
     numeric_modifiers: string; // 'negative,decimal',
     default_in_wallet: string; // my_default_hndl
-    profile_pic: string;
-    background: string;
     resolved_addresses: {
         ada: string;
         eth?: string;
@@ -90,6 +101,7 @@ export interface IHandle {
     };
     created_slot_number: number;
     updated_slot_number: number;
+    utxo: string;
     has_datum: boolean;
     datum?: string;
 }
@@ -113,18 +125,18 @@ export interface IHandleStats {
 export interface IHandleMetadata {
     name: string;
     image: string;
+    standard_image: string;
     mediaType: string;
     og: boolean;
-    og_num: number;
+    og_number: number;
     rarity: string;
     length: number;
-    character_type: string;
+    characters: string;
     numeric_modifiers: string;
     version: number;
 }
 
 export interface IPzDatum {
-    custom_image: string;
     bg_image: string;
     pfp_image: string;
     portal: string;
@@ -136,6 +148,7 @@ export interface IPzDatum {
     validated: boolean;
     trial?: boolean;
     nsfw?: boolean;
+    svg_version: number;
 }
 
 export interface IHandleFileContent {
@@ -143,16 +156,4 @@ export interface IHandleFileContent {
     hash: string;
     schemaVersion?: number;
     handles: Record<string, IPersonalizedHandle>;
-}
-
-export interface ICreatorDefaults extends ISharedPzAppearance {
-    bg_border_colors?: string[]; // ["0a1fd3", "22d1af", "31bc23"],
-    pfp_border_colors?: string[]; // ["0a1fd3", "22d1af", "31bc23"],
-    font_shadow_colors?: string[]; // ["0a1fd3", "22d1af", "31bc23"],
-    require_pfp_collections?: string[]; // ["<policy_id>.<asset_prefix>", "<other_policy_id>"],
-    require_pfp_attributes?: string[]; // ["Outerwear:Denim Jacket"],
-    require_pfp_displayed?: boolean; // true;
-    price?: number; // 125;
-    force_creator_settings?: boolean; // true;
-    custom_dollar_symbol?: boolean; // true;
 }
