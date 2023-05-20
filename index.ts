@@ -131,7 +131,6 @@ export interface IHandleStats {
 export interface IHandleMetadata {
     name: string;
     image: string;
-    standard_image: string;
     mediaType: string;
     og: boolean;
     og_number: number;
@@ -145,6 +144,8 @@ export interface IHandleMetadata {
 export interface IPzDatum {
     bg_image: string;
     pfp_image: string;
+    standard_image: string;
+    image_hash: string;
     portal: string;
     designer: string;
     socials: string;
