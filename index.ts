@@ -155,7 +155,7 @@ export interface IPzDatum {
     validated: boolean;
     trial?: boolean;
     nsfw?: boolean;
-    svg_version: number;
+    svg_version: string;
 }
 
 export interface IHandleFileContent {
