@@ -6,11 +6,17 @@ export enum Rarity {
     legendary = 'legendary' // - 1 character
 }
 
+/**
+ * The asset label is a string that is used to identify the asset type.
+ * First, remove the first and last 0.
+ * Next, use the first 4 characters as the hex and convert to decimal. https://www.rapidtables.com/convert/number/hex-to-decimal.html
+ * Finally, use the decimal number and convert to CRC8. It should match the last 2 characters. https://crccalc.com/
+ */
 export enum AssetNameLabel {
     LABEL_100 = '000643b0', // 100
     LABEL_222 = '000de140', // 222
     LABEL_333 = '0014df10', // 333
-    LABEL_444 = '001bc280'  // 444
+    LABEL_444 = '001bc280' // 444
 }
 
 export interface KeyPair {
