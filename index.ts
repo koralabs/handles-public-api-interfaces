@@ -164,3 +164,7 @@ export interface IHandleFileContent {
     schemaVersion?: number;
     handles: Record<string, IPersonalizedHandle>;
 }
+
+export interface IHandleSvgOptions extends IPersonalizationNftAppearance {
+    og_number?: number;
+}
