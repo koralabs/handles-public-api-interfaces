@@ -29,36 +29,36 @@ export interface SocialItem {
     url: string;
 }
 
-interface ISharedPzAppearance {
+interface ISharedPzDesigner {
     pfp_border_color?: string;
     qr_inner_eye?: string; // 'rounded,#0a1fd3';
     qr_outer_eye?: string; // 'square,#0a1fd3';
     qr_dot?: string; // 'dot,#0a1fd3';
-    qr_bg_color?: string; // '#22d1af';
+    qr_bg_color?: string; // '0x22d1af';
     pfp_zoom?: number; // 0.86;
     pfp_offset?: number[]; //[124, 58],
     font?: string; // 'Family Name,https://fonts.com/super_cool_font.woff';
-    font_color?: string; // "0a1fd3",
+    font_color?: string; // "0x0a1fd3",
     font_shadow_size?: number[]; // [12, 12, 8],
-    text_ribbon_colors?: string[]; // ["0a1fd3", "22d1af", "31bc23"],
+    text_ribbon_colors?: string[]; // ["0x0a1fd3", "22d1af", "31bc23"],
     text_ribbon_gradient?: string; // 'linear-45' | 'radial'
 }
 
-export interface IPersonalizationNftAppearance extends ISharedPzAppearance {
+export interface IPersonalizationDesigner extends ISharedPzDesigner {
     font_shadow_color?: string;
-    pfp_image?: string;
-    bg_image?: string;
-    bg_color?: string;
-    bg_border_color?: string;
+    pfp_asset?: string; // 0x<policy><assetName>
+    bg_asset?: string; // 0x<policy><assetName>
+    bg_color?: string; // "0x0a1fd3"
+    bg_border_color?: string; //"0x0a1fd3"
     qr_link?: string;
     socials?: SocialItem[];
 }
 
-export interface ICreatorDefaults extends ISharedPzAppearance {
-    bg_border_colors?: string[]; // ["0a1fd3", "22d1af", "31bc23"],
-    pfp_border_colors?: string[]; // ["0a1fd3", "22d1af", "31bc23"],
-    font_shadow_colors?: string[]; // ["0a1fd3", "22d1af", "31bc23"],
-    require_pfp_collections?: string[]; // ["<policy_id><asset_prefix>", "<other_policy_id>"],
+export interface ICreatorDefaults extends ISharedPzDesigner {
+    bg_border_colors?: string[]; // ["0x0a1fd3", "22d1af", "31bc23"],
+    pfp_border_colors?: string[]; // ["0x0a1fd3", "22d1af", "31bc23"],
+    font_shadow_colors?: string[]; // ["0x0a1fd3", "22d1af", "31bc23"],
+    require_pfp_collections?: string[]; // ["0x<policy_id><asset_prefix>", "0x<other_policy_id>"],
     require_pfp_attributes?: string[]; // ["Outerwear:Denim Jacket"],
     require_pfp_displayed?: boolean; // true;
     price?: number; // 125;
@@ -73,7 +73,7 @@ export interface IPersonalization {
         custom_settings?: string[] | null;
         default: boolean;
     };
-    designer?: IPersonalizationNftAppearance;
+    designer?: IPersonalizationDesigner;
     socials?: SocialItem[];
     reference_token: {
         tx_id: string;
@@ -81,7 +81,7 @@ export interface IPersonalization {
         lovelace: number;
         datum: string;
     };
-    validated: boolean;
+    validated_by: string;
     trial?: boolean;
     nsfw?: boolean;
 }
@@ -142,20 +142,21 @@ export interface IHandleMetadata {
 }
 
 export interface IPzDatum {
-    bg_image: string;
-    pfp_image: string;
-    standard_image: string;
-    image_hash: string;
+    bg_image: string; // ipfs://cid
+    pfp_image: string; // ipfs://cid
+    standard_image: string; // ipfs://cid
+    image_hash: string; // sha256 checksum of custom handle jpeg
+    standard_image_hash: string; // sha256 checksum of standard_image jpeg
+    svg_version: string;
     portal: string;
     designer: string;
     socials: string;
     vendor: string;
     default: boolean;
-    holder: string;
-    validated: boolean;
+    last_update_address: string; // ByteArray, not Bech32
+    validated_by: string; // PubKeyHash
     trial?: boolean;
     nsfw?: boolean;
-    svg_version: string;
 }
 
 export interface IHandleFileContent {
@@ -165,6 +166,16 @@ export interface IHandleFileContent {
     handles: Record<string, IPersonalizedHandle>;
 }
 
-export interface IHandleSvgOptions extends IPersonalizationNftAppearance {
+export interface IHandleSvgOptions extends IPersonalizationDesigner {
     og_number?: number;
+}
+
+export interface PzSettings {
+    treasury_fee: number; // lovelace
+    treasury_cred: string; // ValidatorKeyHashBytes
+    pz_min_fee: number; // lovelace
+    pz_providers: {[pubKeyHashBytes: string]: string}; // { PubKeyHashBytes: ValidatorKeyHashBytes }
+    valid_contracts: string[]; // ValidatorKeyHashBytes[]
+    admin_creds: string[]; // PubKeyHashBytes[]
+    settings_cred: string; // ValidatorKeyHashBytes
 }
