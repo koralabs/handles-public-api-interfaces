@@ -44,14 +44,18 @@ interface ISharedPzDesigner {
     text_ribbon_gradient?: string; // 'linear-45' | 'radial'
 }
 
-export interface IPersonalizationDesigner extends ISharedPzDesigner {
+export interface IPersonalizationDesignerImage extends ISharedPzDesigner {
     font_shadow_color?: string;
-    pfp_asset?: string; // 0x<policy><assetName>
-    bg_asset?: string; // 0x<policy><assetName>
     bg_color?: string; // "0x0a1fd3"
     bg_border_color?: string; //"0x0a1fd3"
     qr_link?: string;
     socials?: SocialItem[];
+}
+
+export interface IPersonalizationDesigner extends IPersonalizationDesignerImage {
+    svg_version: string;
+    image_hash: string; // sha256 checksum of custom handle jpeg
+    standard_image_hash: string; // sha256 checksum of standard_image jpeg
 }
 
 export interface ICreatorDefaults extends ISharedPzDesigner {
@@ -142,14 +146,13 @@ export interface IHandleMetadata {
 }
 
 export interface IPzDatum {
-    bg_image: string; // ipfs://cid
-    pfp_image: string; // ipfs://cid
     standard_image: string; // ipfs://cid
-    image_hash: string; // sha256 checksum of custom handle jpeg
-    standard_image_hash: string; // sha256 checksum of standard_image jpeg
-    svg_version: string;
+    bg_image?: string; // ipfs://cid
+    pfp_image?: string; // ipfs://cid
+    pfp_asset?: string; // 0x<policy><assetName>
+    bg_asset?: string; // 0x<policy><assetName>
     portal: string;
-    designer: string;
+    designer: string; // ipfs://cid containing IPersonalizationDesigner
     socials: string;
     vendor: string;
     default: boolean;
@@ -166,7 +169,9 @@ export interface IHandleFileContent {
     handles: Record<string, IPersonalizedHandle>;
 }
 
-export interface IHandleSvgOptions extends IPersonalizationDesigner {
+export interface IHandleSvgOptions extends IPersonalizationDesignerImage {
+    pfp_image?: string;
+    bg_image?: string;
     og_number?: number;
 }
 
@@ -174,8 +179,14 @@ export interface PzSettings {
     treasury_fee: number; // lovelace
     treasury_cred: string; // ValidatorKeyHashBytes
     pz_min_fee: number; // lovelace
-    pz_providers: {[pubKeyHashBytes: string]: string}; // { PubKeyHashBytes: ValidatorKeyHashBytes }
+    pz_providers: { [pubKeyHashBytes: string]: string }; // { PubKeyHashBytes: ValidatorKeyHashBytes }
     valid_contracts: string[]; // ValidatorKeyHashBytes[]
     admin_creds: string[]; // PubKeyHashBytes[]
     settings_cred: string; // ValidatorKeyHashBytes
+}
+
+export interface ApprovedPolicies {
+    [policyId: string]: {
+        [patternMatch: string]: [number, number, number?]; // [nsfw, trial, price?]
+    };
 }
