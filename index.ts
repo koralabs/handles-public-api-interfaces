@@ -8,6 +8,7 @@ export enum Rarity {
 
 export type BoolInt = 0 | 1;
 export type HexString = `0x${string}`;
+export type HexStringOrEmpty = HexString | '';
 
 /**
  * The asset label is a string that is used to identify the asset type.
@@ -33,39 +34,39 @@ export interface SocialItem {
 }
 
 interface ISharedPzDesigner {
-    pfp_border_color?: HexString;
+    pfp_border_color?: HexStringOrEmpty;
     qr_inner_eye?: string; // 'rounded,#0a1fd3';
     qr_outer_eye?: string; // 'square,#0a1fd3';
     qr_dot?: string; // 'dot,#0a1fd3';
-    qr_bg_color?: HexString; // '0x22d1af';
+    qr_bg_color?: HexStringOrEmpty; // '0x22d1af';
     pfp_zoom?: number; // 0.86;
     pfp_offset?: number[]; //[124, 58],
     font?: string; // 'Family Name,https://fonts.com/super_cool_font.woff';
-    font_color?: HexString; // "0x0a1fd3",
+    font_color?: HexStringOrEmpty; // "0x0a1fd3",
     font_shadow_size?: number[]; // [12, 12, 8],
-    text_ribbon_colors?: HexString[]; // ["0x0a1fd3", "22d1af", "31bc23"],
+    text_ribbon_colors?: HexStringOrEmpty[]; // ["0x0a1fd3", "22d1af", "31bc23"],
     text_ribbon_gradient?: string; // 'linear-45' | 'radial'
 }
 
 export interface IPersonalizationDesignerImage extends ISharedPzDesigner {
-    font_shadow_color?: HexString;
-    bg_color?: HexString; // "0x0a1fd3"
-    bg_border_color?: HexString; //"0x0a1fd3"
+    font_shadow_color?: HexStringOrEmpty;
+    bg_color?: HexStringOrEmpty; // "0x0a1fd3"
+    bg_border_color?: HexStringOrEmpty; //"0x0a1fd3"
     qr_link?: string;
     socials?: SocialItem[];
 }
 
 export interface IPersonalizationDesigner extends IPersonalizationDesignerImage {
     svg_version: string;
-    image_hash: HexString; // sha256 checksum of custom handle jpeg
-    standard_image_hash: HexString; // sha256 checksum of standard_image jpeg
+    image_hash: HexStringOrEmpty; // sha256 checksum of custom handle jpeg
+    standard_image_hash: HexStringOrEmpty; // sha256 checksum of standard_image jpeg
 }
 
 export interface ICreatorDefaults extends ISharedPzDesigner {
-    bg_border_colors?: HexString[]; // ["0x0a1fd3", "22d1af", "31bc23"],
-    pfp_border_colors?: HexString[]; // ["0x0a1fd3", "22d1af", "31bc23"],
-    font_shadow_colors?: HexString[]; // ["0x0a1fd3", "22d1af", "31bc23"],
-    require_pfp_collections?: HexString[]; // ["0x<policy_id><asset_prefix>", "0x<other_policy_id>"],
+    bg_border_colors?: HexStringOrEmpty[]; // ["0x0a1fd3", "22d1af", "31bc23"],
+    pfp_border_colors?: HexStringOrEmpty[]; // ["0x0a1fd3", "22d1af", "31bc23"],
+    font_shadow_colors?: HexStringOrEmpty[]; // ["0x0a1fd3", "22d1af", "31bc23"],
+    require_pfp_collections?: HexStringOrEmpty[]; // ["0x<policy_id><asset_prefix>", "0x<other_policy_id>"],
     require_pfp_attributes?: string[]; // ["Outerwear:Denim Jacket"],
     require_pfp_displayed?: BoolInt; // true;
     price?: number; // 125;
@@ -152,15 +153,15 @@ export interface IPzDatum {
     standard_image: string; // ipfs://cid
     bg_image?: string; // ipfs://cid
     pfp_image?: string; // ipfs://cid
-    pfp_asset?: HexString; // 0x<policy><assetName>
-    bg_asset?: HexString; // 0x<policy><assetName>
+    pfp_asset?: HexStringOrEmpty; // 0x<policy><assetName>
+    bg_asset?: HexStringOrEmpty; // 0x<policy><assetName>
     portal: string;
     designer: string; // ipfs://cid containing IPersonalizationDesigner
     socials: string;
     vendor: string;
     default: BoolInt;
-    last_update_address: HexString; // ByteArray, not Bech32
-    validated_by: HexString; // PubKeyHash
+    last_update_address: HexStringOrEmpty; // ByteArray, not Bech32
+    validated_by: HexStringOrEmpty; // PubKeyHash
     trial?: BoolInt;
     nsfw?: BoolInt;
 }
@@ -180,12 +181,12 @@ export interface IHandleSvgOptions extends IPersonalizationDesignerImage {
 
 export interface PzSettings {
     treasury_fee: number; // lovelace
-    treasury_cred: HexString; // ValidatorKeyHashBytes
+    treasury_cred: HexStringOrEmpty; // ValidatorKeyHashBytes
     pz_min_fee: number; // lovelace
-    pz_providers: { [pubKeyHashBytes: HexString]: HexString }; // { PubKeyHashBytes: ValidatorKeyHashBytes }
-    valid_contracts: HexString[]; // ValidatorKeyHashBytes[]
-    admin_creds: HexString[]; // PubKeyHashBytes[]
-    settings_cred: HexString; // ValidatorKeyHashBytes
+    pz_providers: { [pubKeyHashBytes: HexString]: HexStringOrEmpty }; // { PubKeyHashBytes: ValidatorKeyHashBytes }
+    valid_contracts: HexStringOrEmpty[]; // ValidatorKeyHashBytes[]
+    admin_creds: HexStringOrEmpty[]; // PubKeyHashBytes[]
+    settings_cred: HexStringOrEmpty; // ValidatorKeyHashBytes
 }
 
 export interface ApprovedPolicies {
