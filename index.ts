@@ -74,13 +74,15 @@ export interface ICreatorDefaults extends ISharedPzDesigner {
     custom_dollar_symbol?: BoolInt; // true;
 }
 
+export interface IPersonalizationPortal {
+    type: string;
+    domain?: string | null;
+    custom_settings?: string[] | null;
+    default: boolean;
+}
+
 export interface IPersonalization {
-    portal?: {
-        type: string;
-        domain?: string | null;
-        custom_settings?: string[] | null;
-        default: boolean;
-    };
+    portal?: IPersonalizationPortal;
     designer?: IPersonalizationDesigner;
     socials?: SocialItem[];
     reference_token: {
