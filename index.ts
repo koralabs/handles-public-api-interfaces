@@ -39,6 +39,7 @@ interface ISharedPzDesigner {
     qr_outer_eye?: string; // 'square,#0a1fd3';
     qr_dot?: string; // 'dot,#0a1fd3';
     qr_bg_color?: HexStringOrEmpty; // '0x22d1af';
+    qr_image?: string; // url or data:image;base64;
     pfp_zoom?: number; // 0.86;
     pfp_offset?: number[]; //[124, 58],
     font?: string; // 'Family Name,https://fonts.com/super_cool_font.woff';
