@@ -166,6 +166,8 @@ export interface IPzDatum {
     validated_by: HexStringOrEmpty; // PubKeyHash
     trial?: BoolInt;
     nsfw?: BoolInt;
+    agreed_terms: string; //https://adahandle.com/tou
+    migrate_sig_required: BoolInt;
 }
 
 export interface IHandleFileContent {
