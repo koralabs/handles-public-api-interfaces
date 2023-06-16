@@ -49,18 +49,12 @@ interface ISharedPzDesigner {
     text_ribbon_gradient?: string; // 'linear-45' | 'radial'
 }
 
-export interface IPersonalizationDesignerImage extends ISharedPzDesigner {
+export interface IPersonalizationDesigner extends ISharedPzDesigner {
     font_shadow_color?: HexStringOrEmpty;
     bg_color?: HexStringOrEmpty; // "0x0a1fd3"
     bg_border_color?: HexStringOrEmpty; //"0x0a1fd3"
     qr_link?: string;
     socials?: SocialItem[];
-}
-
-export interface IPersonalizationDesigner extends IPersonalizationDesignerImage {
-    svg_version: string;
-    image_hash: HexStringOrEmpty; // sha256 checksum of custom handle jpeg
-    standard_image_hash: HexStringOrEmpty; // sha256 checksum of standard_image jpeg
 }
 
 export interface ICreatorDefaults extends ISharedPzDesigner {
@@ -154,6 +148,8 @@ export interface IHandleMetadata {
 
 export interface IPzDatum {
     standard_image: string; // ipfs://cid
+    image_hash: HexStringOrEmpty; // sha256 checksum of custom handle jpeg
+    standard_image_hash: HexStringOrEmpty; // sha256 checksum of standard_image jpeg
     bg_image?: string; // ipfs://cid
     pfp_image?: string; // ipfs://cid
     pfp_asset?: HexStringOrEmpty; // 0x<policy><assetName>
@@ -167,6 +163,7 @@ export interface IPzDatum {
     validated_by: HexStringOrEmpty; // PubKeyHash
     trial?: BoolInt;
     nsfw?: BoolInt;
+    svg_version: string;
 }
 
 export interface IHandleFileContent {
@@ -176,7 +173,7 @@ export interface IHandleFileContent {
     handles: Record<string, IPersonalizedHandle>;
 }
 
-export interface IHandleSvgOptions extends IPersonalizationDesignerImage {
+export interface IHandleSvgOptions extends IPersonalizationDesigner {
     pfp_image?: string;
     bg_image?: string;
     og_number?: number;
