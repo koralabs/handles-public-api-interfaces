@@ -164,6 +164,8 @@ export interface IPzDatum {
     trial?: BoolInt;
     nsfw?: BoolInt;
     svg_version: string;
+    agreed_terms: string; //https://adahandle.com/tou
+    migrate_sig_required: BoolInt;
 }
 
 export interface IHandleFileContent {
