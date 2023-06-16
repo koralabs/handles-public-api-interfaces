@@ -95,7 +95,9 @@ export interface IHandle {
     hex: string;
     name: string;
     image: string;
+    image_hash: string;
     standard_image: string;
+    standard_image_hash: string;
     pfp_image: string;
     bg_image: string;
     holder: string;
@@ -115,6 +117,7 @@ export interface IHandle {
     utxo: string;
     has_datum: boolean;
     datum?: string;
+    svg_version: string;
 }
 
 export interface IPersonalizedHandle extends IHandle {
