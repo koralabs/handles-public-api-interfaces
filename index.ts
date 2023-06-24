@@ -98,8 +98,10 @@ export interface IHandle {
     image_hash: string;
     standard_image: string;
     standard_image_hash: string;
-    pfp_image: string;
-    bg_image: string;
+    pfp_image?: string;
+    pfp_asset?: string;
+    bg_image?: string;
+    bg_asset?: string;
     holder: string;
     length: number;
     og_number: number;
