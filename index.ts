@@ -182,7 +182,9 @@ export interface IHandleFileContent {
 
 export interface IHandleSvgOptions extends IPersonalizationDesigner {
     pfp_image?: string;
+    pfp_asset?: string;
     bg_image?: string;
+    bg_asset?: string;
     og_number?: number;
 }
 
