@@ -55,6 +55,7 @@ export interface IPersonalizationDesigner extends ISharedPzDesigner {
     bg_border_color?: HexStringOrEmpty; //"0x0a1fd3"
     qr_link?: string;
     socials?: SocialItem[];
+    creator_defaults_enabled?: BoolInt;
 }
 
 export interface ICreatorDefaults extends ISharedPzDesigner {
@@ -87,8 +88,8 @@ export interface IPersonalization {
         datum: string;
     };
     validated_by: string;
-    trial?: boolean;
-    nsfw?: boolean;
+    trial: boolean;
+    nsfw: boolean;
 }
 
 export interface IHandle {
@@ -166,8 +167,8 @@ export interface IPzDatum {
     default: BoolInt;
     last_update_address: HexStringOrEmpty; // ByteArray, not Bech32
     validated_by: HexStringOrEmpty; // PubKeyHash
-    trial?: BoolInt;
-    nsfw?: BoolInt;
+    trial: BoolInt;
+    nsfw: BoolInt;
     svg_version: string;
     agreed_terms: string; //https://adahandle.com/tou
     migrate_sig_required: BoolInt;
