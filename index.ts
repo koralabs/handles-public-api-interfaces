@@ -137,6 +137,7 @@ export interface IHandleStats {
     memory_size: number;
     current_slot: number;
     current_block_hash: string;
+    schema_version: number;
 }
 
 export interface IHandleMetadata {
