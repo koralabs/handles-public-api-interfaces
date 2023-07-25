@@ -86,6 +86,7 @@ export interface IPersonalization {
         index: number;
         lovelace: number;
         datum: string;
+        address: string;
     };
     validated_by: string;
     trial: boolean;
