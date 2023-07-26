@@ -77,17 +77,33 @@ export interface IPersonalizationPortal {
     default: boolean;
 }
 
+export interface ScriptDetails {
+    handle: string;
+    hex: string;
+    cbor: string;
+    validatorHash: string;
+    latest?: boolean;
+}
+
+export interface IPersonalizationReferenceTokenScript extends ScriptDetails {
+    handleUtxo: string;
+    handleAddress: string;
+}
+
+export interface IPersonalizationReferenceToken {
+    tx_id: string;
+    index: number;
+    lovelace: number;
+    datum: string;
+    address: string;
+    script?: IPersonalizationReferenceTokenScript;
+}
+
 export interface IPersonalization {
     portal?: IPersonalizationPortal;
     designer?: IPersonalizationDesigner;
     socials?: SocialItem[];
-    reference_token: {
-        tx_id: string;
-        index: number;
-        lovelace: number;
-        datum: string;
-        address: string;
-    };
+    reference_token: IPersonalizationReferenceToken;
     validated_by: string;
     trial: boolean;
     nsfw: boolean;
