@@ -74,20 +74,16 @@ export interface IPersonalizationPortal {
     type: string;
     domain?: string | null;
     custom_settings?: string[] | null;
-    default: boolean;
 }
 
 export interface ScriptDetails {
     handle: string;
-    hex: string;
-    cbor: string;
+    handleHex: string;
+    refScriptUtxo?: string;
+    refScriptAddress?: string;
+    cbor?: string;
     validatorHash: string;
     latest?: boolean;
-}
-
-export interface IPersonalizationReferenceTokenScript extends ScriptDetails {
-    handleUtxo: string;
-    handleAddress: string;
 }
 
 export interface IPersonalizationReferenceToken {
@@ -96,7 +92,7 @@ export interface IPersonalizationReferenceToken {
     lovelace: number;
     datum: string;
     address: string;
-    script?: IPersonalizationReferenceTokenScript;
+    script?: ScriptDetails;
 }
 
 export interface IPersonalization {
