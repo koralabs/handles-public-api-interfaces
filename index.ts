@@ -133,6 +133,10 @@ export interface IHandle {
     utxo: string;
     has_datum: boolean;
     datum?: string;
+    script?: {
+        type: string; // 'plutus_v2', etc
+        cbor: string;
+    };
     svg_version: string;
 }
 
