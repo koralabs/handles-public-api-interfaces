@@ -117,6 +117,7 @@ export interface IHandle {
     bg_image?: string;
     bg_asset?: string;
     holder: string;
+    holder_type: string;
     length: number;
     og_number: number;
     rarity: Rarity;
@@ -138,6 +139,7 @@ export interface IHandle {
         cbor: string;
     };
     svg_version: string;
+    version: number;
 }
 
 export interface ICip68Handle extends IHandle {
