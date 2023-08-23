@@ -86,7 +86,7 @@ export interface ScriptDetails {
     latest?: boolean;
 }
 
-export interface IPersonalizationReferenceToken {
+export interface IReferenceToken {
     tx_id: string;
     index: number;
     lovelace: number;
@@ -99,7 +99,7 @@ export interface IPersonalization {
     portal?: IPersonalizationPortal;
     designer?: IPersonalizationDesigner;
     socials?: SocialItem[];
-    reference_token: IPersonalizationReferenceToken;
+    reference_token: IReferenceToken;
     validated_by: string;
     trial: boolean;
     nsfw: boolean;
@@ -140,7 +140,11 @@ export interface IHandle {
     svg_version: string;
 }
 
-export interface IPersonalizedHandle extends IHandle {
+export interface ICip68Handle extends IHandle {
+    reference_token?: IReferenceToken
+}
+
+export interface IPersonalizedHandle extends ICip68Handle {
     personalization?: IPersonalization;
 }
 
