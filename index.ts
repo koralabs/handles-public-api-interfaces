@@ -86,7 +86,7 @@ export interface ScriptDetails {
     latest?: boolean;
 }
 
-export interface IPersonalizationReferenceToken {
+export interface IReferenceToken {
     tx_id: string;
     index: number;
     lovelace: number;
@@ -99,7 +99,7 @@ export interface IPersonalization {
     portal?: IPersonalizationPortal;
     designer?: IPersonalizationDesigner;
     socials?: SocialItem[];
-    reference_token: IPersonalizationReferenceToken;
+    reference_token: IReferenceToken;
     validated_by: string;
     trial: boolean;
     nsfw: boolean;
@@ -117,6 +117,7 @@ export interface IHandle {
     bg_image?: string;
     bg_asset?: string;
     holder: string;
+    holder_type: string;
     length: number;
     og_number: number;
     rarity: Rarity;
@@ -138,9 +139,14 @@ export interface IHandle {
         cbor: string;
     };
     svg_version: string;
+    version: number;
 }
 
-export interface IPersonalizedHandle extends IHandle {
+export interface ICip68Handle extends IHandle {
+    reference_token?: IReferenceToken
+}
+
+export interface IPersonalizedHandle extends ICip68Handle {
     personalization?: IPersonalization;
 }
 
