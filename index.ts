@@ -82,6 +82,7 @@ export interface ScriptDetails {
     refScriptUtxo?: string;
     refScriptAddress?: string;
     cbor?: string;
+    unoptimizedCbor?: string;
     validatorHash: string;
     latest?: boolean;
 }
@@ -142,7 +143,7 @@ export interface IHandle {
 }
 
 export interface ICip68Handle extends IHandle {
-    reference_token?: IReferenceToken
+    reference_token?: IReferenceToken;
 }
 
 export interface IPersonalizedHandle extends ICip68Handle {
