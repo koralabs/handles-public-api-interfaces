@@ -227,3 +227,40 @@ export interface ApprovedPolicies {
         [patternMatch: HexString]: [number, number, number?]; // [nsfw, trial, price?]
     };
 }
+
+export enum OAuthSocial {
+    'twitter',
+    'facebook',
+    'discord',
+    'instagram',
+    'tiktok',
+    'youtube',
+    'twitch',
+    'linkedin',
+    'snapchat',
+    'telegram',
+    'whatsapp',
+    'medium',
+    'github',
+    'reddit',
+    'pinterest',
+    'pin',
+    'spotify',
+    'soundcloud',
+    'paypal'
+}
+
+export interface OAuthTokenMessage {
+    error?: string;
+    username?: string;
+    token?: string;
+    identifier?: string;
+    social: OAuthSocial;
+}
+
+export interface OAuthToken {
+    identifier: string;
+    username: string;
+    token: string;
+    social: OAuthSocial;
+}
