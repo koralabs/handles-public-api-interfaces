@@ -99,7 +99,6 @@ export interface IPersonalization {
     portal?: IPersonalizationPortal;
     designer?: IPersonalizationDesigner;
     socials?: SocialItem[];
-    reference_token: IReferenceToken;
     validated_by: string;
     trial: boolean;
     nsfw: boolean;
