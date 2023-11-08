@@ -17,6 +17,7 @@ export type HexStringOrEmpty = HexString | '';
  * Finally, use the decimal number and convert to CRC8. It should match the last 2 characters. https://crccalc.com/
  */
 export enum AssetNameLabel {
+    LABEL_000 = '00000000', // 0
     LABEL_100 = '000643b0', // 100
     LABEL_222 = '000de140', // 222
     LABEL_333 = '0014df10', // 333
@@ -163,6 +164,12 @@ export interface IHandleStats {
     schema_version: number;
 }
 
+export enum HandleType {
+    VIRTUAL_SUBHANDLE = 'virtual_subhandle',
+    NFT_SUBHANDLE = 'nft_subhandle',
+    HANDLE = 'handle'
+}
+
 export interface IHandleMetadata {
     name: string;
     image: string;
@@ -174,6 +181,11 @@ export interface IHandleMetadata {
     characters: string;
     numeric_modifiers: string;
     version: number;
+    sub_rarity?: string;
+    sub_length?: number;
+    sub_characters?: string;
+    sub_numeric_modifiers?: string;
+    handle_type: HandleType;
 }
 
 export interface IPzDatum {
@@ -191,6 +203,9 @@ export interface IPzDatum {
     default: BoolInt;
     last_update_address: HexStringOrEmpty; // ByteArray, not Bech32
     validated_by: HexStringOrEmpty; // PubKeyHash
+    resolved_addresses?: {
+        ada: HexStringOrEmpty;
+    };
     trial: BoolInt;
     nsfw: BoolInt;
     svg_version: string;
