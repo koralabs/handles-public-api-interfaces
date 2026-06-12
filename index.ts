@@ -1,3 +1,10 @@
+// Interfaces for the Handles Public API (https://api.handle.me/).
+// The shapes below mirror the API's OpenAPI/Swagger contract
+// (https://api.handle.me/swagger.json) and the live response payloads.
+// Field optionality reflects what the API actually returns: core fields are
+// always present, personalization- and subhandle-derived fields appear only
+// when relevant.
+
 export enum Rarity {
     basic = 'basic', // - 8-15 characters
     common = 'common', // - 4-7 characters
@@ -24,6 +31,63 @@ export enum AssetNameLabel {
     LABEL_444 = '001bc280' // 444
 }
 
+export enum HandleType {
+    VIRTUAL_SUBHANDLE = 'virtual_subhandle',
+    NFT_SUBHANDLE = 'nft_subhandle',
+    HANDLE = 'handle'
+}
+
+/**
+ * Classification of a holder/resolved address.
+ * - `wallet` - Shelley address, not a script, has a stake key
+ * - `script` - Shelley address that is a script
+ * - `enterprise` - Shelley address, not a script, no stake key
+ * - `other` - not a Shelley address
+ */
+export enum AddressType {
+    wallet = 'wallet',
+    script = 'script',
+    enterprise = 'enterprise',
+    other = 'other'
+}
+
+/** Encoding requested from the `/datum` endpoints. */
+export enum DatumType {
+    json = 'json',
+    tx_metadata_json = 'tx_metadata_json',
+    tx_metadata_cbor = 'tx_metadata_cbor',
+    plutus_data_json = 'plutus_data_json',
+    plutus_data_cbor = 'plutus_data_cbor'
+}
+
+/** Lookup key used by the handle filter/search endpoints. */
+export enum FilterType {
+    handle = 'handle',
+    handlehex = 'handlehex',
+    assetname = 'assetname',
+    holder = 'holder',
+    bech32stake = 'bech32stake',
+    bech32address = 'bech32address',
+    hexaddress = 'hexaddress',
+    paymentkeyhash = 'paymentkeyhash',
+    stakekeyhash = 'stakekeyhash'
+}
+
+/** SubHandle minting type filter. */
+export enum MintingType {
+    nft = 'nft',
+    virtual = 'virtual'
+}
+
+/** Index/sync health status reported by the health endpoint. */
+export enum HealthStatus {
+    current = 'current',
+    updating = 'updating',
+    ogmios_behind = 'ogmios_behind',
+    storage_behind = 'storage_behind',
+    waiting_on_cardano_node = 'waiting_on_cardano_node'
+}
+
 export interface KeyPair {
     key: string;
     value: any;
@@ -41,13 +105,13 @@ interface ISharedPzDesigner {
     qr_dot?: string; // 'dot,#0a1fd3';
     qr_bg_color?: HexStringOrEmpty; // '0x22d1af';
     qr_image?: string; // url or data:image;base64;
-    pfp_zoom?: number; // 0.86;
+    pfp_zoom?: number; // 125 (percentage as integer > 100)
     pfp_offset?: number[]; //[124, 58],
     font?: string; // 'Family Name,https://fonts.com/super_cool_font.woff';
     font_color?: HexStringOrEmpty; // "0x0a1fd3",
     font_shadow_size?: number[]; // [12, 12, 8],
     text_ribbon_colors?: HexStringOrEmpty[]; // ["0x0a1fd3", "22d1af", "31bc23"],
-    text_ribbon_gradient?: string; // 'linear-45' | 'radial'
+    text_ribbon_gradient?: string; // 'none' | 'linear-XX' | 'radial'
 }
 
 export interface IPersonalizationDesigner extends ISharedPzDesigner {
@@ -56,6 +120,8 @@ export interface IPersonalizationDesigner extends ISharedPzDesigner {
     bg_border_color?: HexStringOrEmpty; //"0x0a1fd3"
     qr_link?: string;
     socials?: SocialItem[];
+    socials_color?: string;
+    circuit_color?: string;
     creator_defaults_enabled?: BoolInt;
 }
 
@@ -75,6 +141,7 @@ export interface IPersonalizationPortal {
     type: string;
     domain?: string | null;
     custom_settings?: string[] | null;
+    default?: boolean;
 }
 
 export interface ScriptDetails {
@@ -86,6 +153,7 @@ export interface ScriptDetails {
     unoptimizedCbor?: string;
     validatorHash: string;
     latest?: boolean;
+    type?: string; // family slug, e.g. 'pers', 'persprx'
 }
 
 export interface IReferenceToken {
@@ -95,6 +163,17 @@ export interface IReferenceToken {
     datum: string;
     address: string;
     script?: ScriptDetails;
+}
+
+/** A UTxO as exposed by the public API (`UTxO` swagger schema). */
+export interface IUTxO {
+    tx_id: string;
+    index: number;
+    lovelace: number;
+    datum?: string;
+    address: string;
+    script?: ScriptDetails;
+    reference_script?: string;
 }
 
 export interface IPersonalization {
@@ -109,6 +188,16 @@ export interface IPersonalization {
 export interface IHandle {
     hex: string;
     name: string;
+    handle_type: HandleType;
+    holder: string;
+    holder_type: AddressType;
+    length: number;
+    og_number: number;
+    og?: boolean;
+    rarity: Rarity;
+    characters: string; // 'letters,numbers,special',
+    numeric_modifiers: string; // 'negative,decimal',
+    default_in_wallet: string; // my_default_hndl
     image: string;
     image_hash: string;
     standard_image: string;
@@ -117,14 +206,6 @@ export interface IHandle {
     pfp_asset?: string;
     bg_image?: string;
     bg_asset?: string;
-    holder: string;
-    holder_type: string;
-    length: number;
-    og_number: number;
-    rarity: Rarity;
-    characters: string; // 'letters,numbers,special',
-    numeric_modifiers: string; // 'negative,decimal',
-    default_in_wallet: string; // my_default_hndl
     resolved_addresses: {
         ada: string;
         eth?: string;
@@ -133,13 +214,30 @@ export interface IHandle {
     created_slot_number: number;
     updated_slot_number: number;
     utxo: string;
+    lovelace?: number;
     has_datum: boolean;
     datum?: string;
     script?: {
         type: string; // 'plutus_v2', etc
         cbor: string;
     };
-    svg_version: string;
+    // SubHandle-only fields
+    sub_length?: number;
+    sub_rarity?: Rarity;
+    sub_characters?: string;
+    sub_numeric_modifiers?: string;
+    original_address?: string; // address a SubHandle was originally minted to, if exposed
+    virtual?: {
+        expires_time?: number; // POSIX time the Virtual SubHandle expires
+        public_mint?: boolean;
+    };
+    // Personalization-derived fields flattened onto the handle by the API
+    pz_enabled?: boolean;
+    last_update_address?: string;
+    last_edited_time?: number;
+    payment_key_hash?: string;
+    policy?: string;
+    svg_version: string | number;
     version: number;
 }
 
@@ -149,6 +247,63 @@ export interface ICip68Handle extends IHandle {
 
 export interface IPersonalizedHandle extends ICip68Handle {
     personalization?: IPersonalization;
+}
+
+/** Aggregate counts exposed by the public `/stats` endpoint. */
+export interface IStats {
+    total_handles: number;
+    total_holders: number;
+}
+
+/** A holder/owner as exposed by the public `/holders` endpoints. */
+export interface IHolder {
+    total_handles: number;
+    address: string; // stake / enterprise / script / other address
+    type: AddressType;
+    known_owner_name?: string;
+    default_handle?: string;
+    manually_set?: boolean;
+}
+
+/** SubHandle configuration set by a root Handle owner. */
+export interface ISubHandleSettings {
+    nft?: Record<string, any>;
+    virtual?: Record<string, any>;
+    buy_down_paid?: number;
+    buy_down_price?: number;
+    buy_down_percent?: number;
+    agreed_terms?: string;
+    payment_address?: string;
+    migrate_sig_required?: boolean;
+}
+
+/** Uniform error envelope returned by every 4xx/5xx response. */
+export interface IApiError {
+    error: string; // machine-stable code, e.g. 'handle_not_found'
+    message: string; // human-readable; do not branch logic on this
+    docs: string; // url to the most-relevant docs
+}
+
+/** Response from the API health endpoint. */
+export interface IHealthResponse {
+    status: HealthStatus;
+    ogmios?: Record<string, any> | null;
+    stats: {
+        percentage_complete?: number;
+        index_memory_size?: number;
+        slot_date?: string;
+        handle_count?: number;
+        holder_count?: number;
+        memory_size?: number;
+        current_slot?: number;
+        last_slot?: number;
+        current_block_hash?: string;
+        tip_block_hash?: string;
+        utxo_schema_version?: number;
+        index_schema_version?: number;
+        lock_lambdas?: any | null;
+        estimated_sync_time?: string;
+    };
 }
 
 export interface IHandleStats {
@@ -162,12 +317,6 @@ export interface IHandleStats {
     current_slot: number;
     current_block_hash: string;
     schema_version: number;
-}
-
-export enum HandleType {
-    VIRTUAL_SUBHANDLE = 'virtual_subhandle',
-    NFT_SUBHANDLE = 'nft_subhandle',
-    HANDLE = 'handle'
 }
 
 export interface IHandleMetadata {
