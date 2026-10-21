@@ -6,6 +6,7 @@ on:
     paths-ignore:
       - '.github/workflows/pr-tests.yml'
       - '.github/workflows/deploy.yml'
+      - 'test/**'
   workflow_dispatch:
 permissions:
   id-token: write  # Required for OIDC
