@@ -18,3 +18,5 @@ jobs:
           cache: npm
       - run: npm ci --no-audit --no-fund
       - run: npm run build
+      - name: Check consumer type contracts against built declarations
+        run: npx --no-install tsc --noEmit --strict test/consumer.contract.ts
