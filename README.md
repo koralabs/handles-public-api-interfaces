@@ -1,5 +1,9 @@
 # handles-public-api-interfaces
 
+## Contributor test policy
+
+Tests, including consumer contract fixtures, run locally only, never in GitHub Actions, directly or through lifecycle scripts, composites, templates, or shared helpers. Preserve local validation commands. Actions may build declarations, lint, publish, deploy, and enforce production guards. Remove obsolete required test checks when retiring them.
+
 Common TypeScript interfaces library for the [Handles Public API](https://api.handle.me/).
 
 This package contains the shared type definitions (handles, personalization,
