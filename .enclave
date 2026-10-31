@@ -1,0 +1,5 @@
+# Files whose change the operator must review. Exact repo-root paths only. Why each: CANONICAL_CONTRACT.md.
+# index.ts is the published shape of the public API; a wrong or breaking type misleads every consumer.
+index.ts
+.enclave
+CANONICAL_CONTRACT.md
