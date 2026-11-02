@@ -3,10 +3,14 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - '.github/workflows/pr-tests.yml'
-      - '.github/workflows/deploy.yml'
-      - 'test/**'
+    # Publish only when the package itself changes; docs/contract/CI-only merges
+    # would republish an unchanged version and npm rejects it.
+    paths:
+      - 'index.ts'
+      - 'package.json'
+      - 'tsconfig.json'
+      - 'README.md'
+      - 'LICENSE'
   workflow_dispatch:
 permissions:
   id-token: write  # Required for OIDC
